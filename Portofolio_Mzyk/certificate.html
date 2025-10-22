@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificate - Portofolio</title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Me</a></li>
+        <li><a href="experience.html">Skills</a></li>
+        <li><a href="work.html">My Work</a></li>
+        <li><a href="certificate.html" class="active">Certificate</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- SECTION CERTIFICATE -->
+  <section class="section" id="certificate">
+  
+
+    <div class="certificate-gallery">
+      <div class="certificate-item" onclick="toggleSubGallery(this, 'agunacourse')">
+        <img src="/gambar/Network.jpg" alt="AgunaCourse">
+        <p>AgunaCourse</p>
+      </div>
+
+      <div class="certificate-item" onclick="toggleSubGallery(this, 'idn')">
+        <img src="/gambar/IDN.png" alt="IDN">
+        <p>IDN</p>
+      </div>
+
+      <div class="certificate-item" onclick="toggleSubGallery(this, 'netacad')">
+        <img src="/gambar/Netacad.jpg" alt="Netacad">
+        <p>Netacad</p>
+      </div>
+
+      <div class="certificate-item" onclick="toggleSubGallery(this, 'redhat')">
+        <img src="/gambar/Redhat.jpg" alt="RedHat">
+        <p>RedHat</p>
+      </div>
+
+      <div class="certificate-item" onclick="toggleSubGallery(this, 'fortinet')">
+        <img src="/gambar/F1.jpg" alt="Fortinet">
+        <p>Fortinet</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL (KALAU ADA BUKU DLL, MASIH TERSEDIA) -->
+  <div id="bookModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeBook()">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <img id="modalImg" src="" alt="" style="width:100%; border-radius:10px; margin-bottom:20px;">
+      <p id="modalDesc"></p>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    const certificateData = {
+      agunacourse: [
+        "/gambar/Linux.jpg",
+        "/gambar/Python.jpg",
+        "/gambar/Vm.jpg",
+        "/gambar/Pnetlab.jpg"
+      ],
+      netacad: [
+        "/gambar/netacad2.png"
+      ],
+      fortinet: [
+        "/gambar/F2.jpeg",
+        "/gambar/F3.jpg"
+      ]
+    };
+
+    /* ========================= */
+    /* FUNGSI SUB-GALERI */
+    /* ========================= */
+    function toggleSubGallery(element, category) {
+      // tutup semua sub-gallery yang terbuka
+      document.querySelectorAll(".sub-gallery").forEach(g => g.remove());
+
+      // jika sudah terbuka, tutup
+      const existing = element.querySelector(".sub-gallery");
+      if (existing) {
+        existing.remove();
+        return;
+      }
+
+      // buat galeri baru
+      const gallery = document.createElement("div");
+      gallery.className = "sub-gallery";
+      gallery.innerHTML = certificateData[category]
+        .map(src => `<img src="${src}" alt="sertifikat">`)
+        .join("");
+
+      element.appendChild(gallery);
+    }
+
+    /* ========================= */
+    /* DATA MODAL BUKU */
+    /* ========================= */
+    const bookDetails = {
+      "mtcna.jpg": {
+        title: "Module MTCNA",
+        desc: "Buku ini membahas dasar-dasar jaringan MikroTik, meliputi konfigurasi router, manajemen bandwidth, firewall, dan fitur penting lainnya."
+      },
+      "debian.png": {
+        title: "Module Debian 12",
+        desc: "Buku ini menjelaskan instalasi, konfigurasi, serta manajemen server berbasis Debian 12 untuk kebutuhan jaringan dan server."
+      },
+      "ccna.png": {
+        title: "Module CCNA",
+        desc: "Buku panduan resmi untuk sertifikasi Cisco CCNA. Membahas routing, switching, keamanan jaringan, serta praktik konfigurasi Cisco IOS."
+      }
+    };
+
+    // ambil elemen modal
+    const modal = document.getElementById("bookModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalDesc = document.getElementById("modalDesc");
+    const modalImg = document.getElementById("modalImg");
+
+    function openBook(fileName) {
+      if (bookDetails[fileName]) {
+        modalTitle.textContent = bookDetails[fileName].title;
+        modalDesc.textContent = bookDetails[fileName].desc;
+        modalImg.src = fileName;
+      }
+      modal.style.display = "flex";
+    }
+
+    function closeBook() {
+      modal.style.display = "none";
+    }
+
+    window.addEventListener("click", (e) => {
+      if (e.target === modal) closeBook();
+    });
+  </script>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>© 2025 MchyOzik — All Rights Reserved</p>
+      <div class="social-links">
+        <a href="https://wa.me/6285790201784" target="_blank" title="WhatsApp">
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        <a href="https://www.instagram.com/mchyozikk/" target="_blank" title="Instagram">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://www.youtube.com/@MchyOzik17" target="_blank" title="YouTube">
+          <i class="fa-brands fa-youtube"></i>
+        </a>
+        <a href="https://github.com/MchyOzik/" target="_blank" title="GitHub">
+          <i class="fa-brands fa-github"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
